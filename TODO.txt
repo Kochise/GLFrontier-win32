@@ -1,0 +1,33 @@
+TODO
+~~~~~
+
+GL renderer
+~~~~~~~~~~~
+
+(!) Z ordering issues (intro on planet, ship undercarriage, ...)
+
+(!) planet renderer
+
+(!) Holes in some types of space station (hoop one). investigate.
+
+(+) Teardrop drawn poorly.
+
+(+) TwinklyCircle drawn poorly.
+
+gl renderer performance
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1 remaining murderer of framerate:
+
+* gluTesselator for 0x5 objects
+
+
+Bugs
+~~~~
+
+why is the savefile extension option the wrong way around?
+
+Inability to enter starsystem view (use keyboard) - more generally
+that fucking broken click bug of fe2.
+
+
