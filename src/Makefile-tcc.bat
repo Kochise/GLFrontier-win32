@@ -8,7 +8,10 @@ echo;
 del *.bin /s 1>nul 2>&1
 del *.def /s 1>nul 2>&1
 del *.exe /s 1>nul 2>&1
+del *.obj /s 1>nul 2>&1
 del *.o /s 1>nul 2>&1
+
+del std*.txt /s 1>nul 2>&1
 
 del fe2.s.c /s 1>nul 2>&1
 del fe2.s.S /s 1>nul 2>&1
@@ -162,6 +165,9 @@ rem echo AFLAGS=%AFLAGS%
 "%LOC_EXE%" %AFLAGS% screen.c
 "%LOC_EXE%" %AFLAGS% shortcut.c
 
+rem Trick to encapsulate 'main' and allows creation of final executable
+"%LOC_EXE%" %AFLAGS% SDL_main.c
+
 cd ..
 
 echo;  ::done
@@ -174,11 +180,11 @@ set "AFLAGS=-v"
 
 "%LOC_EXE%" -impdef glu32.dll %AFLAGS% -o glu32.def
 rem "%LOC_EXE%" -impdef kernel32.dll %AFLAGS% -o kernel32.def
-rem "%LOC_EXE%" -impdef libogg.dll %AFLAGS% -o libogg.def
-rem "%LOC_EXE%" -impdef libvorbis.dll %AFLAGS% -o libvorbis.def
-"%LOC_EXE%" -impdef libvorbisfile.dll %AFLAGS% -o libvorbisfile.def
+rem "%LOC_EXE%" -impdef "..\libogg.dll" %AFLAGS% -o libogg.def
+rem "%LOC_EXE%" -impdef "..\libvorbis.dll" %AFLAGS% -o libvorbis.def
+"%LOC_EXE%" -impdef "..\libvorbisfile.dll" %AFLAGS% -o libvorbisfile.def
 "%LOC_EXE%" -impdef opengl32.dll %AFLAGS% -o opengl32.def
-"%LOC_EXE%" -impdef SDL.dll %AFLAGS% -o SDL.def
+"%LOC_EXE%" -impdef "..\SDL.dll" %AFLAGS% -o SDL.def
 
 echo;  ::done
 echo;
@@ -208,7 +214,7 @@ rem set "AFLAGS=%AFLAGS% -logg"
 rem set "AFLAGS=%AFLAGS% -lopengl32"
 rem set "AFLAGS=%AFLAGS% -lpthread"
 rem set "AFLAGS=%AFLAGS% -lSDL"
-set "AFLAGS=%AFLAGS% -lSDLmain"
+rem set "AFLAGS=%AFLAGS% -lSDLmain"
 rem set "AFLAGS=%AFLAGS% -ltcc1-32"
 rem set "AFLAGS=%AFLAGS% -ltcc1-64"
 rem set "AFLAGS=%AFLAGS% -luser32"
@@ -237,8 +243,14 @@ rem set "AFLAGS=%AFLAGS% -std=c99"
 rem set "AFLAGS=%AFLAGS% -Wall"
 rem set "AFLAGS=%AFLAGS% -Wno-unused"
 
-"%LOC_EXE%" %AFLAGS% ".\src\audio.o" ".\src\dirent.o" ".\src\hostcall.o" ".\src\input.o" ".\src\keymap.o" ".\src\main.o" ".\src\screen.o" ".\src\shortcut.o" "fe2.o" -o "%PROJ%.exe"
+rem Trying to convert COFF32 to ELF32...
 
-echo;  ::NOOOOooooooo...
+rem objconv.exe -felf32 ".\lib\SDLmain.lib" "SDL_main.o"
+rem objconv.exe -felf32 ".\lib\libSDLmain.a" "SDL_main.o"
+rem objconv.exe -felf32 -lx ".\lib\libSDLmain.a"
+
+"%LOC_EXE%" %AFLAGS% ".\src\audio.o" ".\src\dirent.o" ".\src\hostcall.o" ".\src\input.o" ".\src\keymap.o" ".\src\main.o" ".\src\screen.o" ".\src\shortcut.o" ".\src\SDL_main.o" "fe2.o" -o "..\%PROJ%.exe"
+
+echo;  ::done
 echo;
 rem - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
