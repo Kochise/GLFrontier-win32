@@ -182,7 +182,7 @@ set "AFLAGS=-v"
 rem "%LOC_EXE%" -impdef kernel32.dll %AFLAGS% -o kernel32.def
 rem "%LOC_EXE%" -impdef "..\libogg.dll" %AFLAGS% -o libogg.def
 rem "%LOC_EXE%" -impdef "..\libvorbis.dll" %AFLAGS% -o libvorbis.def
-"%LOC_EXE%" -impdef "..\libvorbisfile.dll" %AFLAGS% -o libvorbisfile.def
+"%LOC_EXE%" -impdef "..\libvorbisfile-3.dll" %AFLAGS% -o libvorbisfile.def
 "%LOC_EXE%" -impdef opengl32.dll %AFLAGS% -o opengl32.def
 "%LOC_EXE%" -impdef "..\SDL.dll" %AFLAGS% -o SDL.def
 
